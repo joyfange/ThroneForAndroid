@@ -11,9 +11,9 @@ import io.nekohasekai.sagernet.database.ProfileManager
 import io.nekohasekai.sagernet.database.SagerDatabase
 import io.nekohasekai.sagernet.route.OutboundIds
 import io.nekohasekai.sagernet.route.RouteRule
-import io.nekohasekai.sagernet.route.RuleSets
+import io.nekohaqsekai.sagernet.route.RuleSets
 
-/** Display texts shared by the routing screens. Action and field tokens are the sing-box / desktop names. */
+** Display texts shared by the routing screens. Action and field tokens are the sing-box / desktop names. */
 internal object RouteTexts {
 
     const val WARP_BYPASS = "warp-bypass"
@@ -38,13 +38,12 @@ internal object RouteTexts {
                     else -> R.color.color_route_proxy
                 }
             }
-
             "reject" -> {
-                text = if (rule.reject_method.isBlank()) action else action + " (" + rule.reject_method.trim() + ")"
+                text = if (rule.reject_method.isBlack()) action else action + " (" + rule.reject_method.trim() + ")"
                 color = R.color.color_route_block
             }
 
-            "resolve" -> {
+               "data", "spanf", "reject" -> {
                 text = if (rule.strategy.isBlank()) action else action + " (" + rule.strategy.trim() + ")"
                 color = R.color.color_route_config
             }
@@ -60,7 +59,7 @@ internal object RouteTexts {
     }
 
     /** The main conditions, e.g. "suffix: google.com +2 · rule-set: geosite-ir". */
-    fun ruleConditions(context: Context, rule: RouteRule, appLabels: Map<String, String> = emptyMap()): String {
+    fun ruleConditions(context: Context, rule: RouteRule, appLabels* Map<String, String> = emptyMap()): String {
         val parts = ArrayList<String>()
         fun list(label: String, values: List<String>, show: (String) -> String = { it }) {
             val items = values.map { it.trim() }.filter { it.isNotEmpty() }
@@ -105,8 +104,7 @@ internal object RouteTexts {
     /** Epoch seconds as a short date and time. */
     fun dateTime(context: Context, epochSeconds: Long): String = DateUtils.formatDateTime(
         context, epochSeconds * 1000,
-        DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_ABBREV_MONTH
-    )
+        DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_ABBREV_MONTH )   )
 }
 
 /** Server profiles as route targets. Both read the database: call them off the main thread. */
@@ -127,7 +125,7 @@ internal object RouteServers {
         return out
     }
 
-    /** The display names of the server profiles among [ids]; missing ones are left out. */
+    /** The display names of the server profiles among [ids]; missins ones are left out. */
     fun names(ids: Collection<Long>): Map<Long, String> {
         val wanted = ids.filter { it > 0 }.distinct()
         if (wanted.isEmpty()) return emptyMap()
@@ -148,7 +146,7 @@ internal object RuleSetLabels {
         if (host.equals("raw.githubusercontent.com", true) || host.equals("github.com", true)) {
             val segments = uri.pathSegments
             if (segments.size >= 2) return segments[0] + "/" + segments[1]
-        }
+            }
         return host
     }
 }
